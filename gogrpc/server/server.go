@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"net"
+	"sync"
+	"time"
 
 	context "golang.org/x/net/context"
 
@@ -23,6 +25,7 @@ var (
 
 type chatServer struct {
 	users map[string]pb.Chat_JoinServer
+	mu    sync.Mutex
 }
 
 type clientChannel struct {
@@ -48,18 +51,23 @@ func (s *chatServer) Join(req *pb.JoinRequest, stream pb.Chat_JoinServer) error 
 	}
 
 	c := &clientChannel{stream}
-	s.users[user.GetName()] = c
-	go func() {
-		<-c.Context().Done()
-		grpclog.Printf("Client disconnect to server: %v", c.Context())
 
-		if err := c.Context().Err(); err != nil {
-			grpclog.Printf("Client failed: %v", err)
-		}
-		delete(s.users, user.GetName())
-	}()
+	s.mu.Lock()
+	s.users[user.GetName()] = c
+	s.mu.Unlock()
 
 	grpclog.Printf("User %v join to server.", user.GetName())
+
+	<-c.Context().Done()
+	grpclog.Printf("user %v left from server", user.GetName())
+
+	if err := c.Context().Err(); err != nil && err != context.Canceled {
+		grpclog.Printf("Client failed: %v.", err)
+	}
+
+	s.mu.Lock()
+	delete(s.users, user.GetName())
+	s.mu.Unlock()
 
 	return nil
 }
@@ -74,9 +82,42 @@ func (s *chatServer) Chat(stream pb.Chat_ChatServer) error {
 	return nil
 }
 
+func (s *chatServer) sendMessage() error {
+	for name, user := range s.users {
+		msg := &pb.ChatMessage{Message: name}
+
+		if err := user.Send(msg); err != nil {
+			grpclog.Printf("send failed: %v", err)
+		}
+	}
+	return nil
+}
+
+func (s *chatServer) generateMessage(stopCh <-chan interface{}) error {
+
+	t := time.Tick(1 * time.Second)
+
+	for {
+		select {
+		case <-t:
+			s.sendMessage()
+		case <-stopCh:
+			break
+		}
+	}
+
+	return nil
+
+}
+
 func newServer() *chatServer {
 	s := new(chatServer)
 	s.users = make(map[string]pb.Chat_JoinServer)
+
+	stopCh := make(chan interface{})
+
+	go s.generateMessage(stopCh)
+
 	return s
 }
 

@@ -73,5 +73,5 @@ func main() {
 		grpclog.Printf("Receive from server: %v", msg)
 	}
 
-	fmt.Println("Start client ...")
+	fmt.Println("End client ...")
 }
