@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.github.goby.chat";
+option java_outer_classname = "ChatProto";
+
+package chatpb;
+
+message UserInfo {
+    uint64 ID       = 1;
+    string Name     = 2;
+    string Password = 3;
+}
+
+message ClientInfo {
+    uint64  Vesion = 1;
+}
+
+message HelloRequest {
+    uint64      TimeStamp = 1;
+    UserInfo    User      = 2;
+    ClientInfo  Client    = 3;
+}
+
+enum ResponseCode {
+    Ok = 0;
+    Reject = 1;
+    BadRequest = 2;
+    OverLimit = 3;
+}
+
+message HelloResponse {
+    ResponseCode Code    = 1;
+    string       Message = 2;
+}
+
+message ChatMessage {
+    string Message = 1;
+    UserInfo From  = 2;
+    UserInfo To    = 3;
+}
+
+message JoinRequest {
+    uint64      RoomID  = 1;
+    UserInfo    User    = 2;
+}
+
+message SendResponse {
+    ResponseCode Code    = 1;
+    string       Message = 2;
+}
+
+service Chat {
+    // A client-to-server rpc
+    rpc Hello(HelloRequest) returns (HelloResponse) {}
+    // A server-to-client rpc, join a room and register chat client
+    rpc Join(JoinRequest) returns (stream ChatMessage) {}
+    // A client-to-server rpc, send message to server
+    rpc SendChatMessage(ChatMessage) returns (SendResponse) {}
+    // Not implementation
+    rpc Chat(stream ChatMessage) returns (stream ChatMessage) {}
+}
