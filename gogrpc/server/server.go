@@ -73,8 +73,26 @@ func (s *chatServer) Join(req *pb.JoinRequest, stream pb.Chat_JoinServer) error 
 }
 
 // A client-to-server rpc, send message to server
-func (s *chatServer) SendChatMessage(ctx context.Context, stream *pb.ChatMessage) (*pb.SendResponse, error) {
-	return nil, nil
+func (s *chatServer) SendChatMessage(ctx context.Context, msg *pb.ChatMessage) (*pb.SendResponse, error) {
+	grpclog.Printf("Recv from client: %s", msg.Message)
+
+	if msg.From == nil {
+		return nil, fmt.Errorf("Unkown from")
+	}
+
+	if msg.To == nil {
+		s.mu.Lock()
+		for name, user := range s.users {
+			if name != msg.From.Name {
+				if err := user.Send(msg); err != nil {
+					grpclog.Printf("send failed: %v", err)
+				}
+			}
+		}
+		s.mu.Unlock()
+	}
+
+	return &pb.SendResponse{Code: 0, Message: "OK"}, nil
 }
 
 // Not implementation
@@ -93,7 +111,7 @@ func (s *chatServer) sendMessage() error {
 	return nil
 }
 
-func (s *chatServer) generateMessage(stopCh <-chan interface{}) error {
+func (s *chatServer) generateMessage(stopCh <-chan struct{}) error {
 
 	t := time.Tick(1 * time.Second)
 
@@ -114,9 +132,9 @@ func newServer() *chatServer {
 	s := new(chatServer)
 	s.users = make(map[string]pb.Chat_JoinServer)
 
-	stopCh := make(chan interface{})
+	//stopCh := make(chan struct{})
 
-	go s.generateMessage(stopCh)
+	//go s.generateMessage(stopCh)
 
 	return s
 }

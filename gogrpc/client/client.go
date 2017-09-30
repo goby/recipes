@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"io"
+	"os"
 
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -48,12 +50,19 @@ func main() {
 	}
 	defer conn.Close()
 
+	var name string
+
+	fmt.Printf("Please insert your name: ")
+	scanner := bufio.NewScanner(os.Stdin)
+	if scanner.Scan() {
+		name = scanner.Text()
+	}
+
 	client := pb.NewChatClient(conn)
 
 	user := &pb.UserInfo{
-		ID:       0,
-		Name:     "goby",
-		Password: "goby",
+		ID:   0,
+		Name: name,
 	}
 	param := &pb.JoinRequest{RoomID: 0, User: user}
 	ret, err := client.Join(context.Background(), param)
@@ -62,15 +71,51 @@ func main() {
 		grpclog.Fatalf("Join server failed: %v", err)
 	}
 
-	for {
-		msg, err := ret.Recv()
-		if err == io.EOF {
+	stopCh := make(chan struct{})
+	msgCh := make(chan *pb.ChatMessage)
+	sendCh := make(chan *pb.ChatMessage)
+
+	go func() {
+		for {
+			select {
+			case <-stopCh:
+				return
+			case msg := <-msgCh:
+				if msg.To == nil {
+					grpclog.Printf("@%s: %s", msg.From.Name, msg.Message)
+				} else {
+					grpclog.Printf("[SEC]@%s: %s", msg.From.Name, msg.Message)
+				}
+			case msg := <-sendCh:
+				client.SendChatMessage(context.Background(), msg)
+			}
+		}
+	}()
+
+	go func() {
+		for {
+			msg, err := ret.Recv()
+			if err == io.EOF {
+				stopCh <- struct{}{}
+			}
+			if err != nil {
+				grpclog.Fatalf("Receive failed: %v", err)
+			}
+
+			msgCh <- msg
+		}
+	}()
+
+	for scanner.Scan() {
+		text := scanner.Text()
+
+		if text == "q" || text == "quit" {
+			stopCh <- struct{}{}
 			break
+		} else if len(text) > 0 {
+			msg := &pb.ChatMessage{Message: text, From: user}
+			sendCh <- msg
 		}
-		if err != nil {
-			grpclog.Fatalf("Receive failed: %v", err)
-		}
-		grpclog.Printf("Receive from server: %v", msg)
 	}
 
 	fmt.Println("End client ...")

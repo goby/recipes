@@ -1,0 +1,74 @@
+Log file created at: 2017/06/29 13:03:51
+Running on machine: debian7
+Binary: Built with gc go1.8.3 for linux/amd64
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0629 13:03:51.271574    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport failed to get client conn for 10.166.224.124:6443: http2: no cached connection was available
+I0629 13:03:51.280563    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport creating client conn to 10.166.224.124:6443
+I0629 13:03:51.280673    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: wrote SETTINGS len=18, settings: ENABLE_PUSH=0, INITIAL_WINDOW_SIZE=4194304, MAX_HEADER_LIST_SIZE=10485760
+I0629 13:03:51.280686    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: wrote WINDOW_UPDATE len=4 (conn) incr=1073741824
+I0629 13:03:51.280742    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: read SETTINGS len=18, settings: MAX_FRAME_SIZE=1048576, MAX_CONCURRENT_STREAMS=250, MAX_HEADER_LIST_SIZE=1048896
+I0629 13:03:51.280750    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: wrote SETTINGS flags=ACK len=0
+I0629 13:03:51.280778    6734 client.go:26] 2017/06/29 13:03:51 Unhandled Setting: [MAX_HEADER_LIST_SIZE = 1048896]
+I0629 13:03:51.280830    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":authority" = "10.166.224.124:6443"
+I0629 13:03:51.280841    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":method" = "GET"
+I0629 13:03:51.280972    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":path" = "/"
+I0629 13:03:51.280979    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":scheme" = "https"
+I0629 13:03:51.280985    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header "user-agent" = "Go-http-client/2.0"
+I0629 13:03:51.281004    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: wrote HEADERS flags=END_STREAM|END_HEADERS stream=1 len=34
+I0629 13:03:51.281184    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: read SETTINGS flags=ACK len=0
+I0629 13:03:51.281192    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport received SETTINGS flags=ACK len=0
+I0629 13:03:51.282277    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: read HEADERS flags=END_HEADERS stream=1 len=66
+I0629 13:03:51.282304    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport received HEADERS flags=END_HEADERS stream=1 len=66
+I0629 13:03:51.282350    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: read DATA flags=END_STREAM stream=1 len=86 data="User \"system:node:k8s-community-16-master.novalocal\" cannot get  at the cluster scope."
+I0629 13:03:51.282359    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport received DATA flags=END_STREAM stream=1 len=86 data="User \"system:node:k8s-community-16-master.novalocal\" cannot get  at the cluster scope."
+I0629 13:03:51.282376    6734 client.go:80] ===============START================
+I0629 13:03:51.282460    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":authority" = "10.166.224.124:6443"
+I0629 13:03:51.282468    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":method" = "GET"
+I0629 13:03:51.282475    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":path" = "/api/v1/watch/rc?fuck=true"
+I0629 13:03:51.282483    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":scheme" = "https"
+I0629 13:03:51.282489    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header "user-agent" = "Go-http-client/2.0"
+I0629 13:03:51.282503    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: wrote HEADERS flags=END_STREAM|END_HEADERS stream=3 len=26
+I0629 13:03:51.282569    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":authority" = "10.166.224.124:6443"
+I0629 13:03:51.282576    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":method" = "GET"
+I0629 13:03:51.282583    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":path" = "/api/v1/watch/rc?fuck=true"
+I0629 13:03:51.282589    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":scheme" = "https"
+I0629 13:03:51.282601    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header "user-agent" = "Go-http-client/2.0"
+I0629 13:03:51.282614    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: wrote HEADERS flags=END_STREAM|END_HEADERS stream=5 len=5
+I0629 13:03:51.282666    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":authority" = "10.166.224.124:6443"
+I0629 13:03:51.282673    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":method" = "GET"
+I0629 13:03:51.282679    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":path" = "/api/v1/watch/rc?fuck=true"
+I0629 13:03:51.282685    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":scheme" = "https"
+I0629 13:03:51.282691    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header "user-agent" = "Go-http-client/2.0"
+I0629 13:03:51.282701    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: wrote HEADERS flags=END_STREAM|END_HEADERS stream=7 len=5
+I0629 13:03:51.282745    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":authority" = "10.166.224.124:6443"
+I0629 13:03:51.282751    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":method" = "GET"
+I0629 13:03:51.282757    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":path" = "/api/v1/watch/rc?fuck=true"
+I0629 13:03:51.282763    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":scheme" = "https"
+I0629 13:03:51.282769    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header "user-agent" = "Go-http-client/2.0"
+I0629 13:03:51.282815    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: wrote HEADERS flags=END_STREAM|END_HEADERS stream=9 len=5
+I0629 13:03:51.282944    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":authority" = "10.166.224.124:6443"
+I0629 13:03:51.282954    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":method" = "GET"
+I0629 13:03:51.282964    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":path" = "/api/v1/watch/rc?fuck=true"
+I0629 13:03:51.282971    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header ":scheme" = "https"
+I0629 13:03:51.282977    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport encoding header "user-agent" = "Go-http-client/2.0"
+I0629 13:03:51.283022    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: wrote HEADERS flags=END_STREAM|END_HEADERS stream=11 len=5
+I0629 13:03:51.283802    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: read HEADERS flags=END_HEADERS stream=3 len=8
+I0629 13:03:51.283824    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport received HEADERS flags=END_HEADERS stream=3 len=8
+I0629 13:03:51.284392    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: read HEADERS flags=END_HEADERS stream=5 len=5
+I0629 13:03:51.284410    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport received HEADERS flags=END_HEADERS stream=5 len=5
+I0629 13:03:51.284587    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: read HEADERS flags=END_HEADERS stream=11 len=5
+I0629 13:03:51.284607    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport received HEADERS flags=END_HEADERS stream=11 len=5
+I0629 13:03:51.284674    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: read DATA flags=END_STREAM stream=11 len=90 data="User \"system:node:k8s-community-16-master.novalocal\" cannot watch rc at the cluster scope."
+I0629 13:03:51.284685    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport received DATA flags=END_STREAM stream=11 len=90 data="User \"system:node:k8s-community-16-master.novalocal\" cannot watch rc at the cluster scope."
+I0629 13:03:51.284703    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: read DATA flags=END_STREAM stream=3 len=90 data="User \"system:node:k8s-community-16-master.novalocal\" cannot watch rc at the cluster scope."
+I0629 13:03:51.284715    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport received DATA flags=END_STREAM stream=3 len=90 data="User \"system:node:k8s-community-16-master.novalocal\" cannot watch rc at the cluster scope."
+I0629 13:03:51.284950    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: read HEADERS flags=END_HEADERS stream=7 len=5
+I0629 13:03:51.284969    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport received HEADERS flags=END_HEADERS stream=7 len=5
+I0629 13:03:51.285008    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: read DATA flags=END_STREAM stream=5 len=90 data="User \"system:node:k8s-community-16-master.novalocal\" cannot watch rc at the cluster scope."
+I0629 13:03:51.285017    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport received DATA flags=END_STREAM stream=5 len=90 data="User \"system:node:k8s-community-16-master.novalocal\" cannot watch rc at the cluster scope."
+I0629 13:03:51.285066    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: read DATA flags=END_STREAM stream=7 len=90 data="User \"system:node:k8s-community-16-master.novalocal\" cannot watch rc at the cluster scope."
+I0629 13:03:51.285076    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport received DATA flags=END_STREAM stream=7 len=90 data="User \"system:node:k8s-community-16-master.novalocal\" cannot watch rc at the cluster scope."
+I0629 13:03:51.285384    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: read HEADERS flags=END_HEADERS stream=9 len=5
+I0629 13:03:51.285396    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport received HEADERS flags=END_HEADERS stream=9 len=5
+I0629 13:03:51.285474    6734 client.go:26] 2017/06/29 13:03:51 http2: Framer 0xc4201b0f00: read DATA flags=END_STREAM stream=9 len=90 data="User \"system:node:k8s-community-16-master.novalocal\" cannot watch rc at the cluster scope."
+I0629 13:03:51.285484    6734 client.go:26] 2017/06/29 13:03:51 http2: Transport received DATA flags=END_STREAM stream=9 len=90 data="User \"system:node:k8s-community-16-master.novalocal\" cannot watch rc at the cluster scope."
