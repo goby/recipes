@@ -36,7 +36,7 @@ func (s *Server) req() int {
 }
 
 func (s *Server) run() {
-	ticker := time.NewTicker(time.Second)
+	ticker := time.NewTicker(1000 * time.Millisecond)
 	defer ticker.Stop()
 	prev := atomic.LoadInt64(s.count)
 	for {
@@ -67,6 +67,7 @@ func main() {
 	// config
 	capacity := 2048
 	rate := capacity
+	//buckets := []int{}
 	buckets := []int{1024, 512, 256, 128, 128, 64, 32, 10}
 
 	var count int64
